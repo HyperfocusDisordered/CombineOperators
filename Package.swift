@@ -9,14 +9,12 @@ let package = Package(
     ],
     products: [
 			.library(name: "CombineOperators", targets: ["CombineOperators"]),
-			.library(name: "CombineCocoa", targets: ["CombineCocoa"])
     ],
     dependencies: [
 			.package(url: "https://github.com/dankinsoid/VDKit.git", from: "1.116.0"),
     ],
     targets: [
 			.target(name: "CombineOperators", dependencies: ["VDKit"]),
-			.target(name: "CombineCocoa", dependencies: ["CombineOperators", "VDKit"]),
-			.testTarget(name: "CombineOperatorsTests", dependencies: ["CombineOperators", "CombineCocoa"])
+			.testTarget(name: "CombineOperatorsTests", dependencies: ["CombineOperators"])
     ]
 )
