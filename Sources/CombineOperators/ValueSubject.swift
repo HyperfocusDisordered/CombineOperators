@@ -18,7 +18,7 @@ public struct ValueSubject<Output> {
 	}
 	public let projectedValue: CurrentValueSubject<Output, Never>
 	
-	public init(wrappedValue: Output) {
+	public init(_ wrappedValue: Output) {
 		projectedValue = CurrentValueSubject(wrappedValue)
 	}
 	public subscript <R>(dynamicMember keyPath: KeyPath<Output, R>) -> ObservableChain<R, Failure> {
