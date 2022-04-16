@@ -21,6 +21,9 @@ public struct ValueSubject<Output> {
 	public init(_ wrappedValue: Output) {
 		projectedValue = CurrentValueSubject(wrappedValue)
 	}
+	public init(wrappedValue: Output) {
+		projectedValue = CurrentValueSubject(wrappedValue)
+	}
 	public subscript <R>(dynamicMember keyPath: KeyPath<Output, R>) -> ObservableChain<R, Failure> {
 		ObservableChain<R, Failure>(observable: projectedValue.map { $0[keyPath: keyPath] }.any())
 	}
