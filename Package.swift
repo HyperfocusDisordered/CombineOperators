@@ -9,14 +9,14 @@ let package = Package(
     ],
     products: [
 			.library(name: "CombineOperators", targets: ["CombineOperators"]),
-			.library(name: "CombineCocoa", targets: ["CombineCocoa"])
+//			.library(name: "CombineCocoa", targets: ["CombineCocoa"])
     ],
     dependencies: [
 			.package(url: "https://github.com/HyperfocusDisordered/VDKit.git", revision: "f3b617a3d359b440c0f45d06f51162c0313f256c"),
     ],
     targets: [
 			.target(name: "CombineOperators", dependencies: ["VDKit"]),
-			.target(name: "CombineCocoa", dependencies: ["CombineOperators", "VDKit"]),
-			.testTarget(name: "CombineOperatorsTests", dependencies: ["CombineOperators", "CombineCocoa"])
+//			.target(name: "CombineCocoa", dependencies: ["CombineOperators", "VDKit"]),
+//			.testTarget(name: "CombineOperatorsTests", dependencies: ["CombineOperators", "CombineCocoa"])
     ]
 )
