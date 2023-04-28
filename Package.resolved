@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "VDKit",
-        "repositoryURL": "https://github.com/dankinsoid/VDKit.git",
+        "repositoryURL": "https://github.com/HyperfocusDisordered/VDKit.git",
         "state": {
           "branch": null,
-          "revision": "0b7fe4828d8c29bbf370b780db75f2c95098e1a5",
-          "version": "1.126.0"
+          "revision": "f3b617a3d359b440c0f45d06f51162c0313f256c",
+          "version": null
         }
       }
     ]

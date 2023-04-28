@@ -5,14 +5,14 @@ import PackageDescription
 let package = Package(
     name: "CombineOperators",
     platforms: [
-			.iOS(.v13)
+        .iOS(.v13)
     ],
     products: [
 			.library(name: "CombineOperators", targets: ["CombineOperators"]),
 			.library(name: "CombineCocoa", targets: ["CombineCocoa"])
     ],
     dependencies: [
-			.package(url: "https://github.com/dankinsoid/VDKit.git", from: "1.116.0"),
+			.package(url: "https://github.com/HyperfocusDisordered/VDKit.git", revision: "f3b617a3d359b440c0f45d06f51162c0313f256c"),
     ],
     targets: [
 			.target(name: "CombineOperators", dependencies: ["VDKit"]),
