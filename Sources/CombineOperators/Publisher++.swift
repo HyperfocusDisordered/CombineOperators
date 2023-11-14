@@ -8,7 +8,7 @@
 
 import Foundation
 import Combine
-import VDKit
+import FoundationExtensions
 
 @available(iOS 13.0, macOS 10.15, *)
 public protocol PublishersMergerType: ArrayInitable {

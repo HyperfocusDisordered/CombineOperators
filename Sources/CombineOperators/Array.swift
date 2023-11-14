@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import VDKit
+import FoundationExtensions
 import Combine
 
 extension Publishers {

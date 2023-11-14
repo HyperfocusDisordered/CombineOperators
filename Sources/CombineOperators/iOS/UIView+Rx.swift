@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import VDKit
+import FoundationExtensions
+import UIKitExtensions
 import Combine
 
 @available(iOS 13.0, macOS 10.15, *)

@@ -10,7 +10,7 @@
 
 import Foundation
 import Combine
-import VDKit
+import FoundationExtensions
 
 #if !DISABLE_SWIZZLING && !os(Linux)
 private var deallocatingSubjectTriggerContext: UInt8 = 0

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import VDKit
+import FoundationExtensions
 import Combine
 
 @available(iOS 13.0, macOS 10.15, *)

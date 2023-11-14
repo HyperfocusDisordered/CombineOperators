@@ -8,7 +8,7 @@
 
 #if SWIFT_PACKAGE && !DISABLE_SWIZZLING && !os(Linux)
 import Foundation
-    import VDKitRuntimeObjc
+import FERuntimeObjc
 #endif
 
 #if !DISABLE_SWIZZLING && !os(Linux)

@@ -10,7 +10,7 @@
 import Foundation
     import Combine
     #if SWIFT_PACKAGE && !os(Linux)
-        import VDKitRuntimeObjc
+        import FERuntimeObjc
     #endif
 
     /// Base class for `DelegateProxyType` protocol.

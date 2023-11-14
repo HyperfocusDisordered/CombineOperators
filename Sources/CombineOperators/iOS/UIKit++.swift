@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import VDKit
+import FoundationExtensions
 import Combine
-import CombineOperators
 
 @available(iOS 13.0, macOS 10.15, *)
 extension Reactive where Base: UIResponder {

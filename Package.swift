@@ -9,14 +9,12 @@ let package = Package(
     ],
     products: [
 			.library(name: "CombineOperators", targets: ["CombineOperators"]),
-//			.library(name: "CombineCocoa", targets: ["CombineCocoa"])
     ],
     dependencies: [
-			.package(url: "https://github.com/HyperfocusDisordered/VDKit.git", revision: "f3b617a3d359b440c0f45d06f51162c0313f256c"),
+			.package(url: "https://github.com/HyperfocusDisordered/FoundationExtensions.git", revision: "5ecbfe0d3eccb97a8f1f570affcbc7b7673d9a96"),
+            .package(url: "https://github.com/HyperfocusDisordered/UIKitExtensions.git", revision: "fc04f7038e2075f4b0f3526048861211084a0931"),
     ],
     targets: [
-			.target(name: "CombineOperators", dependencies: ["VDKit"]),
-//			.target(name: "CombineCocoa", dependencies: ["CombineOperators", "VDKit"]),
-//			.testTarget(name: "CombineOperatorsTests", dependencies: ["CombineOperators", "CombineCocoa"])
+			.target(name: "CombineOperators", dependencies: ["FoundationExtensions", "UIKitExtensions"]),
     ]
 )

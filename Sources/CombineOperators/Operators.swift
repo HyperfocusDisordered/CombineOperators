@@ -5,7 +5,7 @@
 //
 
 import Foundation
-import VDKit
+import FoundationExtensions
 import Combine
 
 precedencegroup CombinePrecedence {

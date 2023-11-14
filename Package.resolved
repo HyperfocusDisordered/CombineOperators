@@ -2,11 +2,20 @@
   "object": {
     "pins": [
       {
-        "package": "VDKit",
-        "repositoryURL": "https://github.com/HyperfocusDisordered/VDKit.git",
+        "package": "FoundationExtensions",
+        "repositoryURL": "https://github.com/HyperfocusDisordered/FoundationExtensions.git",
         "state": {
           "branch": null,
-          "revision": "f3b617a3d359b440c0f45d06f51162c0313f256c",
+          "revision": "5ecbfe0d3eccb97a8f1f570affcbc7b7673d9a96",
+          "version": null
+        }
+      },
+      {
+        "package": "UIKitExtensions",
+        "repositoryURL": "https://github.com/HyperfocusDisordered/UIKitExtensions.git",
+        "state": {
+          "branch": null,
+          "revision": "fc04f7038e2075f4b0f3526048861211084a0931",
           "version": null
         }
       }

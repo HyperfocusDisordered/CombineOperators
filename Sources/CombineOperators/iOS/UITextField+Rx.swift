@@ -10,7 +10,7 @@
 
 import Combine
 import UIKit
-import VDKit
+import FoundationExtensions
 @available(iOS 13.0, macOS 10.15, *)
 extension Reactive where Base: UITextField {
 	/// Reactive wrapper for `text` property.
