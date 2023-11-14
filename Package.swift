@@ -5,16 +5,15 @@ import PackageDescription
 let package = Package(
     name: "CombineOperators",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v13), .macOS(.v10_10), .watchOS(.v5), .tvOS(.v9),
     ],
     products: [
 			.library(name: "CombineOperators", targets: ["CombineOperators"]),
     ],
     dependencies: [
-			.package(url: "https://github.com/HyperfocusDisordered/FoundationExtensions.git", revision: "5ecbfe0d3eccb97a8f1f570affcbc7b7673d9a96"),
-            .package(url: "https://github.com/HyperfocusDisordered/UIKitExtensions.git", revision: "fc04f7038e2075f4b0f3526048861211084a0931"),
+			.package(url: "https://github.com/HyperfocusDisordered/FoundationExtensions.git", revision: "f9c0b8d7f5b7fa5ba6592d84d511b414be0cde6b"),
     ],
     targets: [
-			.target(name: "CombineOperators", dependencies: ["FoundationExtensions", "UIKitExtensions"]),
+			.target(name: "CombineOperators", dependencies: ["FoundationExtensions"]),
     ]
 )

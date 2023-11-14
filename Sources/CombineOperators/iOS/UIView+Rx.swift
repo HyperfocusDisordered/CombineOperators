@@ -7,8 +7,11 @@
 
 import UIKit
 import FoundationExtensions
+#if canImport(UIKit) && canImport(UIKitExtensions) && os(iOS)
+
 import UIKitExtensions
 import Combine
+
 
 @available(iOS 13.0, macOS 10.15, *)
 extension Reactive where Base: UIView {
@@ -155,3 +158,4 @@ private final class NSKeyValueObservations {
 		observers.forEach { $0.invalidate() }
 	}
 }
+#endif

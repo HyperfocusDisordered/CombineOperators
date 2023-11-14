@@ -10,6 +10,9 @@ import UIKit
 import FoundationExtensions
 import Combine
 
+#if canImport(UIKit) && canImport(UIKitExtensions) && os(iOS)
+import UIKitExtensions
+
 @available(iOS 13.0, macOS 10.15, *)
 extension Reactive where Base: UIResponder {
 
@@ -83,3 +86,4 @@ extension Subscriber where Input == CGAffineTransform {
 	}
 
 }
+#endif

@@ -6,17 +6,26 @@
         "repositoryURL": "https://github.com/HyperfocusDisordered/FoundationExtensions.git",
         "state": {
           "branch": null,
-          "revision": "5ecbfe0d3eccb97a8f1f570affcbc7b7673d9a96",
+          "revision": "f9c0b8d7f5b7fa5ba6592d84d511b414be0cde6b",
           "version": null
         }
       },
       {
-        "package": "UIKitExtensions",
-        "repositoryURL": "https://github.com/HyperfocusDisordered/UIKitExtensions.git",
+        "package": "SimpleCoders",
+        "repositoryURL": "https://github.com/dankinsoid/SimpleCoders.git",
         "state": {
           "branch": null,
-          "revision": "fc04f7038e2075f4b0f3526048861211084a0931",
-          "version": null
+          "revision": "5039cf84204e134fa558ea20a1e440db8618e977",
+          "version": "1.5.0"
+        }
+      },
+      {
+        "package": "VDCodable",
+        "repositoryURL": "https://github.com/dankinsoid/VDCodable.git",
+        "state": {
+          "branch": null,
+          "revision": "08870ba396424284c29deb41b25cec93d58e535e",
+          "version": "2.13.0"
         }
       }
     ]
