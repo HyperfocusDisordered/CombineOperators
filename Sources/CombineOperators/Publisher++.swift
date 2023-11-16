@@ -306,7 +306,7 @@ extension Publisher {
 	}
 
 	public func flat<P: Publisher>(_ transform: @escaping (Output) -> P) -> AnyPublisher<P.Output, Failure> {
-		if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, watchOS 7.0, macOS 11.0, tvOS 14.0, *) {
 			return flatMap { transform($0).skipFailure() }.eraseToAnyPublisher()
 		} else {
 			return Publishers.FlatMapiOS13(source: self, map: transform).eraseToAnyPublisher()

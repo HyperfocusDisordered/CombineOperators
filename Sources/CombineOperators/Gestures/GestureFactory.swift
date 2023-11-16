@@ -17,6 +17,8 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+#if os(OSX) || os(iOS)
+
 #if canImport(ObjectiveC)
 import Combine
 import ObjectiveC
@@ -56,4 +58,5 @@ extension Factory where Gesture == CombineGestureRecognizer {
 }
 
 private var gestureRecognizerStrongDelegateKey: UInt8 = 0
+#endif
 #endif

@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "CombineOperators",
     platforms: [
-        .iOS(.v13), .macOS(.v10_10), .watchOS(.v5), .tvOS(.v9),
+        .iOS(.v13), .macOS(.v10_15), .watchOS(.v6), .tvOS(.v13),
     ],
     products: [
 			.library(name: "CombineOperators", targets: ["CombineOperators"]),

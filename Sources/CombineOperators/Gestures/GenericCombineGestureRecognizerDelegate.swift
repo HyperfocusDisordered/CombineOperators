@@ -18,9 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#if os(iOS)
+#if os(OSX) || os(iOS)
+
+
+#if os(iOS) && canImport(UIKit)
 import UIKit
-#elseif os(OSX)
+#elseif os(OSX) && canImport(AppKit)
 import AppKit
 #endif
 import Combine
@@ -81,7 +84,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: CombineGestureRec
     /// Corresponding delegate method: gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)
     public var simultaneousRecognitionPolicy: GestureRecognizerDelegatePolicy<(Gesture, CombineGestureRecognizer)> = .always
 
-    #if os(iOS)
+    #if os(iOS) && canImport(UIKit)
     // Workaround because we can't have stored properties with @available annotation
     private var _pressReceptionPolicy: Any?
 
@@ -96,7 +99,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: CombineGestureRec
     }
     #endif
 
-    #if os(OSX)
+    #if os(OSX) && canImport(AppKit)
     /// Corresponding delegate method: gestureRecognizer(_:shouldAttemptToRecognizeWith:)
     public var eventRecognitionAttemptPolicy: GestureRecognizerDelegatePolicy<(Gesture, NSEvent)> = .always
     #endif
@@ -143,7 +146,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: CombineGestureRec
         )
     }
 
-    #if os(iOS)
+    #if os(iOS) && canImport(UIKit)
 
     public func gestureRecognizer(
         _ gestureRecognizer: CombineGestureRecognizer,
@@ -156,7 +159,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: CombineGestureRec
 
     #endif
 
-    #if os(OSX)
+    #if os(OSX) && canImport(AppKit)
 
     public func gestureRecognizer(
         _ gestureRecognizer: CombineGestureRecognizer,
@@ -170,3 +173,6 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: CombineGestureRec
     #endif
 
 }
+
+
+#endif

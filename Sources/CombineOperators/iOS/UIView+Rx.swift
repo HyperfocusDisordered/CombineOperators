@@ -5,10 +5,10 @@
 //  Created by Данил Войдилов on 27.02.2021.
 //
 
+
+#if canImport(UIKit) && canImport(UIKitExtensions) && os(iOS)
 import UIKit
 import FoundationExtensions
-#if canImport(UIKit) && canImport(UIKitExtensions) && os(iOS)
-
 import UIKitExtensions
 import Combine
 

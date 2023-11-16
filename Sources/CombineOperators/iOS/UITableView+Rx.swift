@@ -405,24 +405,24 @@ extension Reactive where Base: UITableView {
 }
 #endif
 
-#if os(tvOS)
-    
-@available(iOS 13.0, macOS 10.15, *)
-extension Reactive where Base: UITableView {
-        
-        /**
-         Reactive wrapper for `delegate` message `tableView:didUpdateFocusInContext:withAnimationCoordinator:`.
-         */
-        public var didUpdateFocusInContextWithAnimationCoordinator: ControlEvent<(context: UITableViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator)> {
-            
-            let source = delegate.methodInvoked(#selector(UITableViewDelegate.tableView(_:didUpdateFocusIn:with:)))
-                .map { a -> (context: UITableViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator) in
-                    let context = try castOrThrow(UITableViewFocusUpdateContext.self, a[1])
-                    let animationCoordinator = try castOrThrow(UIFocusAnimationCoordinator.self, a[2])
-                    return (context: context, animationCoordinator: animationCoordinator)
-            }
-            
-            return ControlEvent(events: source)
-        }
-    }
-#endif
+//#if os(tvOS)
+//    
+//@available(iOS 13.0, macOS 10.15, *)
+//extension Reactive where Base: UITableView {
+//        
+//        /**
+//         Reactive wrapper for `delegate` message `tableView:didUpdateFocusInContext:withAnimationCoordinator:`.
+//         */
+//        public var didUpdateFocusInContextWithAnimationCoordinator: ControlEvent<(context: UITableViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator)> {
+//            
+//            let source = delegate.methodInvoked(#selector(UITableViewDelegate.tableView(_:didUpdateFocusIn:with:)))
+//                .map { a -> (context: UITableViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator) in
+//                    let context = try castOrThrow(UITableViewFocusUpdateContext.self, a[1])
+//                    let animationCoordinator = try castOrThrow(UIFocusAnimationCoordinator.self, a[2])
+//                    return (context: context, animationCoordinator: animationCoordinator)
+//            }
+//            
+//            return ControlEvent(events: source)
+//        }
+//    }
+//#endif

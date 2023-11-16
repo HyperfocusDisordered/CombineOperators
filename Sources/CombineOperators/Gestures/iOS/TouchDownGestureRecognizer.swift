@@ -1,3 +1,5 @@
+#if os(OSX) || os(iOS)
+
 #if canImport(UIKit)
 
 import UIKit
@@ -138,4 +140,5 @@ extension Publisher where Output: TouchDownGestureRecognizer {
     }
 }
 
+#endif
 #endif

@@ -20,6 +20,9 @@
 
 import Foundation
 
+#if os(OSX) || os(iOS)
+
+
 #if os(iOS)
     import UIKit
     public typealias CombineGestureTouch = UITouch
@@ -68,3 +71,5 @@ public enum TargetView {
         }
     }
 }
+
+#endif

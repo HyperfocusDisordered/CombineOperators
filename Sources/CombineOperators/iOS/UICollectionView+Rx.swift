@@ -358,21 +358,21 @@ extension Reactive where Base: UICollectionView {
 }
 #endif
 
-#if os(tvOS)
-@available(iOS 13.0, macOS 10.15, *)
-extension Reactive where Base: UICollectionView {
-    
-    /// Reactive wrapper for `delegate` message `collectionView(_:didUpdateFocusInContext:withAnimationCoordinator:)`.
-    public var didUpdateFocusInContextWithAnimationCoordinator: ControlEvent<(context: UICollectionViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator)> {
-
-        let source = delegate.methodInvoked(#selector(UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)))
-            .map { a -> (context: UICollectionViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator) in
-                let context = try castOrThrow(UICollectionViewFocusUpdateContext.self, a[1])
-                let animationCoordinator = try castOrThrow(UIFocusAnimationCoordinator.self, a[2])
-                return (context: context, animationCoordinator: animationCoordinator)
-            }
-
-        return ControlEvent(events: source)
-    }
-}
-#endif
+//#if os(tvOS)
+//@available(iOS 13.0, macOS 10.15, *)
+//extension Reactive where Base: UICollectionView {
+//    
+//    /// Reactive wrapper for `delegate` message `collectionView(_:didUpdateFocusInContext:withAnimationCoordinator:)`.
+//    public var didUpdateFocusInContextWithAnimationCoordinator: ControlEvent<(context: UICollectionViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator)> {
+//
+//        let source = delegate.methodInvoked(#selector(UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)))
+//            .map { a -> (context: UICollectionViewFocusUpdateContext, animationCoordinator: UIFocusAnimationCoordinator) in
+//                let context = try castOrThrow(UICollectionViewFocusUpdateContext.self, a[1])
+//                let animationCoordinator = try castOrThrow(UIFocusAnimationCoordinator.self, a[2])
+//                return (context: context, animationCoordinator: animationCoordinator)
+//            }
+//
+//        return ControlEvent(events: source)
+//    }
+//}
+//#endif

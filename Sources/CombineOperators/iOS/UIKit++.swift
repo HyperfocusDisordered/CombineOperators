@@ -6,12 +6,13 @@
 //  Copyright © 2020 Daniil. All rights reserved.
 //
 
+
+#if canImport(UIKit) && canImport(UIKitExtensions) && os(iOS)
+import UIKitExtensions
 import UIKit
 import FoundationExtensions
 import Combine
 
-#if canImport(UIKit) && canImport(UIKitExtensions) && os(iOS)
-import UIKitExtensions
 
 @available(iOS 13.0, macOS 10.15, *)
 extension Reactive where Base: UIResponder {

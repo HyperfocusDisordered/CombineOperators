@@ -6,6 +6,8 @@
 //
 
 import Combine
+#if canImport(UIKit) && os(iOS)
+
 import UIKit
 
 @available(iOS 13.0, macOS 10.15, *)
@@ -74,3 +76,4 @@ public extension Reactive where Base: UIViewController {
 	}
 	
 }
+#endif
