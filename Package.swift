@@ -12,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
 
-        .package(url: "https://github.com/HyperfocusDisordered/FoundationExtensions.git", .exact("2.0.1")),
+        .package(url: "https://github.com/HyperfocusDisordered/FoundationExtensions.git", .exact("2.0.2")),
     ],
     targets: [
 			.target(name: "CombineOperators", dependencies: ["FoundationExtensions"]),
