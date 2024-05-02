@@ -81,7 +81,10 @@ extension CurrentValueSubject: WithCurrentValue {
 }
 
 extension ValueSubject: WithCurrentValue {
-	public var value: Output { wrappedValue }
+    public var value: Output { 
+        get { wrappedValue }
+        set { wrappedValue = newValue }
+    }
 }
 
 public extension Publisher {
@@ -102,6 +105,28 @@ public extension Publisher {
         sink(receiveCompletion: {_ in }, receiveValue: receiveValue)
     }
 }
+
+//extension Publisher {
+//    func print(
+//        _ prefix: String = "",
+//        printed: @escaping (Output) -> Any = { $0 },
+//        file: String = #file,
+//        function: String = #function,
+//        line: Int = #line
+//    ) -> AnyPublisher<Output, Failure>
+//    {
+//        self.map {
+//            Service.debugLogsService()
+//                .save(prefix + String(describing: printed($0)),
+//                      .important,
+//                      Service.debugLogsService().track())
+//            return $0
+//        }.eraseToAnyPublisher()
+//
+//    }
+//}
+
+
 
 public extension Single {
 	public init(queue: DispatchQueue = DispatchQueue.global(),

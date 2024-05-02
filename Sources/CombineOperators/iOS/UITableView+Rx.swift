@@ -73,17 +73,17 @@ extension Reactive where Base: UITableView {
              }
              .disposed(by: disposeBag)
     */
-    public func items<Sequence: Swift.Sequence, Cell: UITableViewCell, Source: Publisher>
-        (cellIdentifier: String, cellType: Cell.Type = Cell.self)
+    public func items<Sequence: Swift.Sequence, UICell: UITableViewCell, Source: Publisher>
+        (cellIdentifier: String, cellType: UICell.Type = UICell.self)
         -> (_ source: Source)
-        -> (_ configureCell: @escaping (Int, Sequence.Element, Cell) -> Void)
+        -> (_ configureCell: @escaping (Int, Sequence.Element, UICell) -> Void)
         -> Cancellable
         where Source.Output == Sequence {
         return { source in
             return { configureCell in
                 let dataSource = CombineTableViewReactiveArrayDataSourceSequenceWrapper<Sequence> { tv, i, item in
                     let indexPath = IndexPath(item: i, section: 0)
-                    let cell = tv.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! Cell
+                    let cell = tv.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! UICell
                     configureCell(i, item, cell)
                     return cell
                 }
