@@ -41,7 +41,9 @@ public struct ValueSubject<Output> {
         self.wrappedSubject = another.wrappedSubject
     }
 
-    public init<P: SyncroniusPublisher>(publisher: P,  setter: @escaping (Output) -> () ) where Output: Equatable, P.Output == Output, P.Failure == Never {
+    public init<P: SyncroniusPublisher>(publisher: P, setter: ((Output) -> ())? = nil ) where Output: Equatable, P.Output == Output, P.Failure == Never {
+
+		self.retained.append(publisher)
 
         wrappedSubject = CurrentValueSubject(publisher.wrappedValue)
 
@@ -49,7 +51,7 @@ public struct ValueSubject<Output> {
             .removeDuplicates()
             .sink {
                 if publisher.wrappedValue != $0 {
-                    setter($0)
+                    setter?($0)
                 }
             }
             .store(in: &cancelables)
@@ -61,14 +63,18 @@ public struct ValueSubject<Output> {
 
     }
 
-    public init<P: SyncroniusPublisher>(publisher: P,  setter: @escaping (Output) -> () ) where  P.Output == Output, P.Failure == Never {
+	public var retained: [Any] = []
+
+    public init<P: SyncroniusPublisher>(publisher: P,  setter: ((Output) -> ())? = nil ) where  P.Output == Output, P.Failure == Never {
+
+		self.retained.append(publisher)
 
         wrappedSubject = CurrentValueSubject(publisher.wrappedValue)
 
         wrappedSubject
             .sink {
 //                if publisher.wrappedValue != $0 {
-                    setter($0)
+                    setter?($0)
 //                }
             }
             .store(in: &cancelables)
@@ -76,6 +82,7 @@ public struct ValueSubject<Output> {
         publisher
             .sink(wrappedSubject)
             .store(in: &cancelables)
+
 
     }
 
@@ -181,7 +188,9 @@ extension SyncroniusPublisher {
     public func mapGet<R>(_ transform: @escaping (Output) -> R) -> ValueSubject<R> {
         var mappedPublisher = ValueSubject<R>(transform(wrappedValue))
         self.map(transform).sink(mappedPublisher).store(in: &mappedPublisher.cancelables)
+		mappedPublisher.retained.append(self)
         return mappedPublisher
+
     }
 
 
@@ -190,6 +199,7 @@ extension SyncroniusPublisher {
         self.map(get).sink(mappedPublisher).store(in: bag(mappedPublisher))
 
         mappedPublisher.sink { set($0) }.store(in: &mappedPublisher.cancelables)
+		mappedPublisher.retained.append(self)
 
         return mappedPublisher
     }
