@@ -193,6 +193,18 @@ extension SyncroniusPublisher {
 
     }
 
+  public func asyncGet<R>(initial: R, _ transform: @escaping (Output, @escaping (R) -> ()) -> () ) -> ValueSubject<R> {
+    var mappedPublisher = ValueSubject<R>(initial)
+
+    self.sink { new in
+      transform(new, {
+        mappedPublisher.wrappedValue = $0
+      })
+    }
+
+    .store(in: &mappedPublisher.cancelables)
+    return mappedPublisher
+  }
 
     public func mapSubject<R>( get: @escaping (Output) -> R, set: @escaping (R) -> ()) -> ValueSubject<R> {
         var mappedPublisher = ValueSubject<R>(get(wrappedValue))
