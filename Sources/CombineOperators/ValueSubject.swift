@@ -10,42 +10,140 @@ import Combine
 import FoundationExtensions
 
 
+//@dynamicMemberLookup
 
-@dynamicMemberLookup
+
+
 @propertyWrapper
-public struct ValueSubject<Output> {
-	public typealias Failure = Never
-	public var wrappedValue: Output {
-		get { wrappedSubject.value }
-		nonmutating set { wrappedSubject.value = newValue }
-	}
+public class RxState<Output>: ObservableObject {
+    public typealias Failure = Never
+    public var wrappedValue: Output {
+        get { wrappedSubject.value }
+        set {      
+            wrappedSubject.value = newValue
+            objectWillChange.send()
+        }
+    }
     public var val: Output {
         get { wrappedSubject.value }
-        nonmutating set { wrappedSubject.value = newValue }
+        set { 
+            wrappedSubject.value = newValue
+            objectWillChange.send()
+        }
     }
-    public let wrappedSubject: CurrentValueSubject<Output, Never>
 
-	public var projectedValue: ValueSubject<Output> { self }
+
+
+    public let objectWillChange = ObservableObjectPublisher()
+    // ObservableObject conformance
+//    public func objectWillChange() -> ObservableObjectPublisher {
+//        publisher
+//    }
+
+    public fileprivate(set) var wrappedSubject: CurrentValueSubject<Output, Never>
+
+    public var projectedValue: RxState<Output> { self }
 
     var cancelables = Set<AnyCancellable>()
 
+    public var retained: [Any] = []
+
+
+    public init<P:SyncroniusPublisher>(_ publisher: P) where P.Failure == Never, P.Output == Output {
+        wrappedSubject = CurrentValueSubject(publisher.wrappedValue)
+
+        wrappedValue = publisher.wrappedValue
+
+
+        publisher.sink { [weak self ]  in
+            self?.wrappedValue = $0
+            self?.objectWillChange.send()
+        }
+        .store(in: &cancelables)
+    }
+
+
+    public init<P: RxState>(_ publisher: P) where P.Failure == Never, P.Output == Output {
+        wrappedSubject = publisher.wrappedSubject
+
+        wrappedValue = publisher.wrappedValue
+
+        publisher.sink { [weak self ] _ in
+//            self?.wrappedValue = $0
+//            DispatchQueue.main.async {
+                self?.objectWillChange.send()
+//            }
+        }
+        .store(in: &cancelables)
+    }
+
+    public init(_ publisher: CurrentValueSubject<Output, Never>)
+    {
+
+        wrappedSubject = publisher
+//        CurrentValueSubject(publisher.wrappedValue)
+
+        wrappedValue = publisher.wrappedValue
+
+        wrappedSubject.sink { [weak self ] _ in
+//            self?.wrappedValue = $0
+            self?.objectWillChange.send()
+
+        }
+        .store(in: bag(publisher))
+    }
+
+//    public init() {
+//        wrappedSubject = CurrentValueSubject()
+//
+//        wrappedValue = publisher.wrappedValue
+//
+//        wrappedSubject.sink { [weak self ] in
+//            self?.wrappedValue = $0
+//        }
+//        .store(in: &cancelables)
+//    }
+}
+
+@dynamicMemberLookup
+@propertyWrapper
+
+public class ValueSubject<Output>: RxState<Output> {
+	public typealias Failure = Never
+
+    public override var wrappedValue: Output {
+		get { wrappedSubject.value }
+        set { wrappedSubject.value = newValue }
+	}
+//    public var val: Output {
+//        get { wrappedSubject.value }
+//        set { wrappedSubject.value = newValue }
+//    }
+//    public let wrappedSubject: CurrentValueSubject<Output, Never>
+//
+    public override var projectedValue: ValueSubject<Output> { self }
+//
+//    var cancelables = Set<AnyCancellable>()
+
 	public init(wrappedValue: Output) {
-        wrappedSubject = CurrentValueSubject(wrappedValue)
+        super.init(CurrentValueSubject(wrappedValue))
+//        wrappedSubject = CurrentValueSubject(wrappedValue)
 	}
 
     public init(_ wrappedValue: Output) {
-        wrappedSubject = CurrentValueSubject(wrappedValue)
+        super.init(CurrentValueSubject(wrappedValue))
     }
 
     public init(_ another: ValueSubject<Output>) {
-        self.wrappedSubject = another.wrappedSubject
+        super.init(another.wrappedSubject)
+
+//        self.wrappedSubject = another.wrappedSubject
     }
 
     public init<P: SyncroniusPublisher>(publisher: P, setter: ((Output) -> ())? = nil ) where Output: Equatable, P.Output == Output, P.Failure == Never {
 
-		self.retained.append(publisher)
 
-        wrappedSubject = CurrentValueSubject(publisher.wrappedValue)
+        super.init(CurrentValueSubject(publisher.wrappedValue))
 
         wrappedSubject
             .removeDuplicates()
@@ -63,13 +161,13 @@ public struct ValueSubject<Output> {
 
     }
 
-	public var retained: [Any] = []
 
     public init<P: SyncroniusPublisher>(publisher: P,  setter: ((Output) -> ())? = nil ) where  P.Output == Output, P.Failure == Never {
 
-		self.retained.append(publisher)
 
-        wrappedSubject = CurrentValueSubject(publisher.wrappedValue)
+        super.init(CurrentValueSubject(publisher.wrappedValue))
+       
+        self.retained.append(publisher)
 
         wrappedSubject
             .sink {
@@ -228,7 +326,7 @@ extension CurrentValueSubject: SyncroniusPublisher where Failure == Never {
 
 }
 
-extension ValueSubject: SyncroniusPublisher {
+extension RxState: SyncroniusPublisher {
 
 }
 
@@ -268,7 +366,7 @@ extension CurrentValueSubject: Subscriber {
 
 
 
-extension ValueSubject: Subscriber {
+extension RxState: Subscriber {
 	public var combineIdentifier: CombineIdentifier {
         wrappedSubject.combineIdentifier
 	}
@@ -288,7 +386,7 @@ extension ValueSubject: Subscriber {
 	public typealias Input = Output
 }
 
-extension ValueSubject: Publisher {
+extension RxState: Publisher {
 	public func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Output == S.Input {
         wrappedSubject.receive(subscriber: subscriber)
 	}
